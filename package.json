@@ -1,0 +1,35 @@
+{
+  "name": "pr-loop",
+  "version": "0.1.0",
+  "description": "Autonomous PR comment/review resolver for coding agents",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "pr-loop": "./src/index.ts"
+  },
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "start": "bun run src/index.ts start",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.0.0"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "keywords": [
+    "pr",
+    "pull-request",
+    "agent",
+    "coding-agent",
+    "review",
+    "automation",
+    "github"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terui/pr-loop"
+  }
+}
