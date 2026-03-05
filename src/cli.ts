@@ -22,7 +22,7 @@ export async function handleStart(args: StartArgs): Promise<void> {
     process.exit(1)
   }
 
-  let config = await loadConfig(cwd)
+  let config = await loadConfig()
   config = mergeConfigWithArgs(config, args)
 
   if (!config.selfUser) {

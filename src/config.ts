@@ -1,9 +1,11 @@
-import { existsSync } from "node:fs"
+import { existsSync, mkdirSync } from "node:fs"
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
+import { homedir } from "node:os"
 import { type PrLoopConfig, DEFAULT_CONFIG, type AgentType } from "./types.ts"
 
-const CONFIG_FILE = ".prloop/config.json"
+const CONFIG_DIR_NAME = "pr-loop"
+const CONFIG_FILE_NAME = "config.json"
 
 interface RawConfig {
   agent?: string
@@ -13,8 +15,18 @@ interface RawConfig {
   selfUser?: string
 }
 
-export async function loadConfig(cwd: string): Promise<PrLoopConfig> {
-  const configPath = join(cwd, CONFIG_FILE)
+export function resolveConfigDir(): string {
+  const xdg = process.env.XDG_CONFIG_HOME
+  const base = xdg || join(homedir(), ".config")
+  return join(base, CONFIG_DIR_NAME)
+}
+
+export function resolveConfigPath(): string {
+  return join(resolveConfigDir(), CONFIG_FILE_NAME)
+}
+
+export async function loadConfig(): Promise<PrLoopConfig> {
+  const configPath = resolveConfigPath()
 
   if (!existsSync(configPath)) {
     return DEFAULT_CONFIG
@@ -46,6 +58,13 @@ export function mergeConfigWithArgs(
     pollingIntervalSeconds: args.interval ?? config.pollingIntervalSeconds,
     maxTasks: args.maxTasks ?? config.maxTasks,
     selfUser: config.selfUser,
+  }
+}
+
+export function ensureConfigDir(): void {
+  const dir = resolveConfigDir()
+  if (!existsSync(dir)) {
+    mkdirSync(dir, { recursive: true })
   }
 }
 
