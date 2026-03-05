@@ -2,6 +2,7 @@
 
 import { handleStart, handleStatus, handleStop } from "./cli.ts"
 import { logger } from "./logger.ts"
+import { resolveConfigPath } from "./config.ts"
 
 const VERSION = "0.1.0"
 
@@ -20,6 +21,9 @@ Options (start):
   --interval <seconds>       Polling interval in seconds (default: 300)
   --system-prompt <text>     Custom system prompt
   --max-tasks <number>       Maximum tasks to execute (default: 50)
+
+Config:
+  ${resolveConfigPath()}
 
 Environment:
   PR_LOOP_DEBUG=1            Enable debug logging
