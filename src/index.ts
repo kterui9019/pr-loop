@@ -17,7 +17,7 @@ Usage:
   pr-loop help               Show this help
 
 Options (start):
-  --agent <claude|opencode>  Agent to use (default: claude)
+  --agent <claude|opencode|codex>  Agent to use (default: claude)
   --interval <seconds>       Polling interval in seconds (default: 300)
   --system-prompt <text>     Custom system prompt
   --max-tasks <number>       Maximum tasks to execute (default: 50)

@@ -1,4 +1,4 @@
-export type AgentType = "claude" | "opencode"
+export type AgentType = "claude" | "opencode" | "codex"
 
 export interface PrLoopConfig {
   readonly agent: AgentType
