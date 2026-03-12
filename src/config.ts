@@ -69,7 +69,7 @@ export function ensureConfigDir(): void {
 }
 
 function validateAgent(agent: string | undefined): AgentType | undefined {
-  if (agent === "claude" || agent === "opencode") {
+  if (agent === "claude" || agent === "opencode" || agent === "codex") {
     return agent
   }
   return undefined

@@ -48,6 +48,8 @@ function buildCommand(agent: AgentType, prompt: string): string[] {
       return ["claude", "-p", "--no-dangerously-skip-permissions", prompt]
     case "opencode":
       return ["opencode", "run", prompt]
+    case "codex":
+      return ["codex", "exec", "--sandbox", "danger-full-access", prompt]
   }
 }
 

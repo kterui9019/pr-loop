@@ -2,12 +2,12 @@
 
 Coding Agent が PR のレビューコメントや指摘事項を自律的に解消するための Agent Harness Tool。
 
-PR にコメントが付くたびにポーリングで検出し、Claude Code や OpenCode などの Coding Agent に修正を委譲する。
+PR にコメントが付くたびにポーリングで検出し、Claude Code / OpenCode / Codex などの Coding Agent に修正を委譲する。
 
 ## Highlights
 
 - **自律ループ** — PR のコメント・レビュー指摘を自動検出し、Coding Agent にタスクとして渡す
-- **エージェント選択** — Claude Code / OpenCode を切り替え可能
+- **エージェント選択** — Claude Code / OpenCode / Codex を切り替え可能
 - **ToDo 管理** — 検出したコメントを `.prloop/todos.md` にMarkdown形式で記録。人間が読める
 - **自動終了** — PR がマージまたはクローズされるとループを終了
 - **カスタマイズ可能** — システムプロンプト、ポーリング間隔、最大タスク数を設定ファイルまたはCLI引数で変更
@@ -21,6 +21,7 @@ PR にコメントが付くたびにポーリングで検出し、Claude Code �
 - 以下のいずれかの Coding Agent CLI:
   - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (`claude`)
   - [OpenCode](https://github.com/sst/opencode) (`opencode`)
+  - [Codex CLI](https://developers.openai.com/codex/cli) (`codex`)
 
 ### Install
 
@@ -57,7 +58,7 @@ pr-loop version            バージョンを表示
 
 | オプション | 説明 | デフォルト |
 |---|---|---|
-| `--agent <claude\|opencode>` | 使用するCoding Agent | `claude` |
+| `--agent <claude\|opencode\|codex>` | 使用するCoding Agent | `claude` |
 | `--interval <seconds>` | ポーリング間隔（秒） | `300` (5分) |
 | `--system-prompt <text>` | カスタムシステムプロンプト | 下記参照 |
 | `--max-tasks <number>` | 最大実行タスク数（安全リミット） | `50` |
@@ -70,6 +71,9 @@ pr-loop start
 
 # OpenCode で10分間隔
 pr-loop start --agent opencode --interval 600
+
+# Codex で1分間隔
+pr-loop start --agent codex --interval 60
 
 # カスタムプロンプトを指定
 pr-loop start --system-prompt "Fix the issue and commit."
@@ -120,7 +124,7 @@ EOF
 
 | フィールド | 型 | 説明 | デフォルト |
 |---|---|---|---|
-| `agent` | `"claude" \| "opencode"` | 使用するエージェント | `"claude"` |
+| `agent` | `"claude" \| "opencode" \| "codex"` | 使用するエージェント | `"claude"` |
 | `systemPrompt` | `string` | エージェントに渡すシステムプロンプト | 上記参照 |
 | `pollingIntervalSeconds` | `number` | ポーリング間隔（秒） | `300` |
 | `maxTasks` | `number` | 最大実行タスク数 | `50` |
@@ -204,11 +208,12 @@ gh auth login
 
 ### エージェントが見つからない
 
-`claude` または `opencode` コマンドにPATHが通っているか確認。
+`claude` / `opencode` / `codex` コマンドにPATHが通っているか確認。
 
 ```sh
 which claude
 which opencode
+which codex
 ```
 
 ### 既に実行中と表示される
