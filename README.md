@@ -72,8 +72,8 @@ pr-loop start
 # OpenCode で10分間隔
 pr-loop start --agent opencode --interval 600
 
-# Codex で実行
-pr-loop start --agent codex
+# Codex で1分間隔
+pr-loop start --agent codex --interval 60
 
 # カスタムプロンプトを指定
 pr-loop start --system-prompt "Fix the issue and commit."
